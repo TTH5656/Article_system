@@ -32,10 +32,6 @@ const router = createRouter({
           path: '/user/password',
           component: () => import('@/views/user/UserPassword.vue'),
         },
-        {
-          path: '/11',
-          component: () => import('@/views/article/11.vue'),
-        },
       ],
     },
   ],
