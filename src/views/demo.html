@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button class="del">删除</button>
+    <button class="login">登录</button>
+    <button class="add">添加</button>
+  </body>
+</html>
+<script>
+  const Modal = function (title = '', content = '') {
+    this.ModalBox = document.createElement('div')
+    this.ModalBox.className = 'modal'
+    this.ModalBox.innerHTML = `
+      <div class="header">${title}<i>x</i></div>
+      <div class="content">${content}</div>
+    `
+  }
+  const del = new Modal('删除', '你确定要删除吗？')
+  const add = new Modal('添加', '请输入要添加的内容')
+  const login = new Modal('登录', '请输入用户名和密码')
+  Modal.prototype.open = function () {
+    const box = document.querySelector('.modal')
+    box && box.remove()
+    document.body.appendChild(this.ModalBox)
+    this.ModalBox.querySelector('i').addEventListener('click', () => {
+      this.close()
+    })
+  }
+  Modal.prototype.close = function () {
+    document.body.removeChild(this.ModalBox)
+  }
+  document.querySelector('.del').addEventListener('click', function () {
+    del.open()
+  })
+  document.querySelector('.login').addEventListener('click', function () {
+    login.open()
+  })
+  document.querySelector('.add').addEventListener('click', function () {
+    add.open()
+  })
+</script>
+<style>
+  .modal {
+    width: 300px;
+    min-height: 100px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    position: fixed;
+    z-index: 999;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    background-color: #fff;
+  }
+
+  .modal .header {
+    line-height: 40px;
+    padding: 0 10px;
+    position: relative;
+    font-size: 20px;
+  }
+
+  .modal .header i {
+    font-style: normal;
+    color: #999;
+    position: absolute;
+    right: 15px;
+    top: -2px;
+    cursor: pointer;
+  }
+
+  .modal .body {
+    text-align: center;
+    padding: 10px;
+  }
+
+  .modal .footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+  }
+
+  .modal .footer a {
+    padding: 3px 8px;
+    background: #ccc;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 2px;
+    margin-right: 10px;
+    font-size: 14px;
+  }
+
+  .modal .footer a.submit {
+    background-color: #369;
+  }
+</style>
